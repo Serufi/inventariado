@@ -345,8 +345,29 @@ function print_label(label, output) {
 }
 
 function buscar(str) {
-    centerOnPath(str);
-    iluminate(document.getElementById(str));
+    try {
+        centerOnPath(str);
+        iluminate(document.getElementById(str));
+    }
+    catch (err) { }
+
+
+    var rows = document.querySelectorAll('[role="row"]');
+
+    if(str != "")
+        Array.from(rows).forEach(function (row) {
+            row.classList.add("hidden");
+            if (row.innerHTML.includes(str)) {
+                row.classList.remove("hidden");
+                row.classList.add("selected");
+            }
+        });
+    else
+        Array.from(rows).forEach(function (row) {
+            row.classList.remove("hidden");
+            row.classList.remove("selected");
+        });
+        
 }
 
 function clicked() {
