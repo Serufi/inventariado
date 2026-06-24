@@ -1,17 +1,30 @@
 .map_container1 {
     width: 50vw;
-    height: 90vw;
+    height: 99vh;
     position: fixed;
     top: 0px;
     left: 50vw;
+    z-index: 1;
 }
-
 .map_container2 {
     width: 100vw;
     height: 40vh;
     position: fixed;
     top: 0;
     left: 0vw;
+    z-index: 1;
+}
+.table_container1 {
+    width: 50vw;
+    left: 0vw;
+}
+.svg-pan-zoom_viewport {
+    z-index: 9999;
+}
+.table_container2 {
+    display: block;
+    margin-top: 300px !important;
+    width: 100vw;
 }
 
 .mouse:hover {
@@ -30,6 +43,7 @@
     right: 10px;
     bottom: 10px;
     z-index: 9999;
+    hidden;
 }
 
     #panel_de_control .btn {
@@ -42,7 +56,6 @@
     height: 10px;
     right: 10px;
     top: 10px;
-    z-index: 9999;
 }
 
 #reset {
@@ -51,7 +64,7 @@
     height: 25px;
     top: 5px;
     left: 51vw;
-    z-index: 9999;
+
     margin: 0px;
     padding: 0px;
 }
@@ -112,15 +125,6 @@
     justify-content: center;
 }
 
-.table_container1 {
-    width: 50vw;
-}
-
-.table_container2 {
-    display: block;
-    margin-top: 300px !important;
-    width: 100vw;
-}
 
 .unselected {
     fill-opacity: 0.2;
