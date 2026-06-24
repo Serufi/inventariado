@@ -5,7 +5,7 @@ var centring_target = "=grl9";
 let isDirty = true;
 
 //-------------------------------------------
-window.addEventListener("load", e => {
+window.onload = () => {
 
     const svgElement = document.getElementById('mapa_itb_'); // Change to your SVG's actual ID
     let touchStartX = 0;
@@ -47,8 +47,7 @@ window.addEventListener("load", e => {
     }, { passive: false });
 
 
-
-}, true);
+};
 //--------------------------------------- hovered stuff
 document.addEventListener("mouseenter", e => {
     if (!e.target.tagName) return;
