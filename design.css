@@ -1,0 +1,203 @@
+.map_container1 {
+    width: 50vw;
+    height: 90vw;
+    position: fixed;
+    top: 0px;
+    left: 50vw;
+}
+
+.map_container2 {
+    width: 100vw;
+    height: 40vh;
+    position: fixed;
+    top: 0;
+    left: 0vw;
+}
+
+.mouse:hover {
+    cursor:crosshair;
+}
+/*-----------------------------------------------------------f*/
+.btn_paste {
+    margin: 1px;
+    padding: 1px;
+    font-size: 0.8em;
+    float: right;
+}
+
+#panel_de_control {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 9999;
+}
+
+    #panel_de_control .btn {
+        font-size: 0.6em;
+    }
+
+#searching_ids {
+    position: fixed;
+    width: 300px;
+    height: 10px;
+    right: 10px;
+    top: 10px;
+    z-index: 9999;
+}
+
+#reset {
+    position: fixed;
+    width: 60px;
+    height: 25px;
+    top: 5px;
+    left: 51vw;
+    z-index: 9999;
+    margin: 0px;
+    padding: 0px;
+}
+
+#openModalBtn {
+/*    position: fixed;
+    width: 150px;
+    top: 52px;
+    right: 10px;
+    z-index: 9999;*/
+}
+
+    #openModalBtn:hover {
+    }
+
+#flipearBtn {
+/*    position: fixed;
+    width: 150px;
+    top: 145px;
+    right: 10px;
+    z-index: 9999;*/
+}
+
+    #flipearBtn:hover {
+    }
+
+#download {
+/*    z-index: 9999;
+    position: fixed;
+    width: 150px;
+    top: 214px;
+    right: 10px;*/
+}
+
+    #download:hover {
+    }
+/*.btn_flip {
+    position: fixed;
+    top: 95px;
+    right: 10px;
+    width: 300px;
+    z-index: 9999;
+    background: white;
+}
+
+    .btn_flip:hover {
+        background: darkgray;
+        color:white;
+    }*/
+.btn_paste:hover {
+    color: black;
+    background: lightblue;
+    outline-color: white;
+}
+
+
+#lol{
+    justify-content: center;
+}
+
+.table_container1 {
+    width: 50vw;
+}
+
+.table_container2 {
+    display: block;
+    margin-top: 300px !important;
+    width: 100vw;
+}
+
+.unselected {
+    fill-opacity: 0.2;
+}
+
+@keyframes breathe-opacity {
+    0% {
+        fill-opacity: 0.2;
+    }
+
+    50% {
+        fill-opacity: 0.4;
+    }
+
+    100% {
+        fill-opacity: 0.2; 
+    }
+}
+
+.hovered {
+    animation: breathe-opacity 1s ease-in-out infinite;
+    will-change: fill-opacity;
+}
+
+button {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+
+.white_t {
+    color: gray;
+/*    position: fixed;*/
+/*    right: 10px;
+    top: 10px;*/
+    z-index: 9999;
+}
+
+#follow_label {
+    color: lightgray;
+    position: absolute;
+    background: black;
+    fill-opacity: 0.5;
+}
+
+.modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(1px);
+}
+
+.modal {
+    border: none;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.btn-confirm {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    position: relative;
+    z-index: 9999; 
+}

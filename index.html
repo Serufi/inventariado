@@ -1,28 +1,91 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
-    <title>Barcode Test</title>
+    <link href="https://unpkg.com/tabulator-tables@6.2.1/dist/css/tabulator.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/tabulator-tables@6.2.1/dist/js/tabulator.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
+    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="design.css">
+    <script src="system.js"></script>
+
+    <title></title>
 </head>
-<body>
-    <h1>Esperando data</h1>
-    <input type="text" id="barcodeInput" autofocus />
-    <h1 id="barcodeDisplay">Waiting for scan...</h1>
 
-    <script>
-        const input = document.getElementById("barcodeInput");
-        const display = document.getElementById("barcodeDisplay");
+<body onload="loadData();">
 
-        input.addEventListener("keydown", function (e) {
-            if (e.key === "Enter") {
-                display.textContent = input.value;
-                input.value = "";
-            }
-        });
 
-        document.addEventListener("click", () => input.focus());
-        window.onload = () => input.focus();
-    </script>
+    <div id="lol"> Cargando... 🕑 <br /> Por favor <br /> Espere un momento...</div>
+
+    <div id="panel_de_control">
+        <textarea id="searching_ids" placeholder="Buscar IDs, ejemplo... 47-0006" oninput="buscar(event.target.value);" class="form-control"></textarea>
+        <button id="reset" onclick="reset();" class="btn btn-outline btn-primary">Centrar Vista</button>
+        <button id="flipearBtn" onclick="switcher();" class="btn btn-outline btn-primary">Flipear Horizontal/Vertical</button>
+        <button id="openModalBtn" onclick="openModal();" class="btn btn-outline btn-secondary ">Filtrado, Carga de Datos, Diccionario</button>
+        <button id="download" onclick="downloadData();" class="btn btn-outline btn-warning">Descargar Datos Actuales</button>
+    </div>
+
+    <div id="table" onclick="func1(event.target)" class="table_container1"></div>
+
+
+    <div id="img_countainer" class="mouse map_container1"></div>
+
+
+    <h6 id="follow_label" class="white_t"><span class="label_buscando"></span></h6>
+
+
+
+
+
+
+
+
+
+
+
+    <dialog id="customModal" class="modal">
+        <div class="modal-content">
+            <h2>Inventariado ITABEC</h2>
+
+
+            <label for="pasteArea" style="font-size:0.8em;">
+                Para ingresar datos propios distintos a los precargados:
+                <br />Copie y pegue desde el <b>EXCEL</b> la información de las siguientes columnas:
+                <br />  • Id de Padrimonio
+                <br />  • Id de Itabec
+                <br />  • Descipción del objeto: <br /> en el siguiente cuadro de texto
+            </label>
+
+            <h4>Cargar datos: <span style="font-size:0.5em;"> Solo desde Excel!</span></h4>
+            <textarea id="pasteArea" oninput="clicked();"></textarea>
+
+
+            <h4>Diccionario:</h4>
+            <textarea id="buscar" oninput="diccionario_de_terminos(this.value);"></textarea>
+            <label for="buscar"> ...<span style="font-family:'Encode Sans Normal'" class="label_buscando"></span></label>
+            <p style="font-family:'Courier New'; font-size: 0.8em;">
+                . dirección          .<br />
+                & jefatura           .<br />
+                = zona               .<br />
+                + bodega/adjacente a .<br />
+                / pasillo            .<br />
+            </p>
+
+            <div class="modal-actions">
+                <button class="btn btn-confirm" onclick="closeModal();">cerrar</button>
+            </div>
+        </div>
+    </dialog>
+
+
+
+
 
 </body>
 </html>
