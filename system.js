@@ -21,6 +21,23 @@ document.addEventListener("mouseenter", e => {
             if (buscado) { iluminate(buscado); }
         }
     }
+
+
+
+    const el1 = document.getElementById('svg-pan-zoom-zoom-in');
+    const el2 = document.getElementById('svg-pan-zoom-zoom-out');
+
+    if (el1) {
+        el1.setAttribute( 'transform',
+            el1.getAttribute('transform').replace(/scale\([^)]+\)/, 'scale(0.02)')
+        );
+    }
+    if (el2) {
+        el2.setAttribute( 'transform',
+            el2.getAttribute('transform').replace(/scale\([^)]+\)/, 'scale(0.02)')
+        );
+    }
+
 }, true);
 
 
@@ -155,12 +172,24 @@ function loadData() {
         .catch(err => console.error(err));
 
     fetch('inventariado 2.svg')
-        .then(response => response.text())
+        .then(r => r.text())
         .then(svgCode => {
-            document.getElementById('img_countainer').innerHTML = svgCode;
-            checkHealthSVG();
-        })
-        .catch(error => console.error('Error fetching SVG:', error));
+            const container = document.getElementById('img_countainer');
+            container.innerHTML = svgCode;
+
+            const svg = document.getElementById('mapa_itb_');
+
+            svgPanZoom(svg, {
+                zoomEnabled: true,
+                controlIconsEnabled: true,
+                mouseWheelZoomEnabled: true,
+                fit: true,
+                center: true,
+                minZoom: 0.5,
+                maxZoom: 10
+            });
+        });
+
 }
 
 function func1(dom_element)
@@ -190,12 +219,14 @@ function checkHealthSVG() {
 
 
     setTimeout(() => { centerOnPath(centring_target); }, 1000);
-    
+
+
 } //also adds paste here buttons via addbuttons();
 // Function to center on a specific path
 
 function reset() {
     centerOnPath(centring_target);
+
 }
 
 function centerOnPath(pathId, zoomLevel = 2) {
