@@ -1,3 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+/* Force iPad WebKit engine to render text as an active 3D layer */
+svg text {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+}
 .map_container1 {
     width: 50vw;
     height: 99vh;
