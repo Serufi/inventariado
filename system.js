@@ -40,7 +40,6 @@ document.addEventListener("mouseenter", e => {
 
 }, true);
 
-
 window.addEventListener("beforeunload", (event) => {
     if (isDirty) {
         event.preventDefault();
@@ -67,7 +66,7 @@ document.addEventListener('mousemove', e => {
     // document.querySelector('.white_t').style.cssText = 'right:100px;top:50px;';
 });
 
-document.addEventListener("click", async e => {
+document.addEventListener("pointerdown", async e => {
     var output_text = "";
     if (e.target.tagName.toLowerCase() === "path") {
         try {
