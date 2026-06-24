@@ -56,13 +56,13 @@ svg text {
 
 #panel_de_control {
     position: fixed;
-    right: 100px;
+    right: 10px;
     bottom: 10px;
     z-index: 9999;
 }
 
     #panel_de_control .btn {
-        font-size: 0.6em;
+        font-size: 1em;
     }
 
 #searching_ids {
@@ -71,6 +71,14 @@ svg text {
     height: 10px;
     right: 10px;
     top: 10px;
+}
+
+[tabulator-field="nombre"] {
+    font-size: 0.5em;
+}
+
+[tabulator-field="fff"] {
+    font-size: 0.5em;
 }
 
 #reset {
@@ -82,6 +90,8 @@ svg text {
 
     margin: 0px;
     padding: 0px;
+
+    display: none;
 }
 
 #openModalBtn {

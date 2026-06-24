@@ -68,17 +68,14 @@ document.addEventListener("mouseenter", e => {
 
 
 
-    const el1 = document.getElementById('svg-pan-zoom-zoom-in');
-    const el2 = document.getElementById('svg-pan-zoom-zoom-out');
+    const el1 = document.getElementById('svg-pan-zoom-controls');
 
     if (el1) {
-        el1.setAttribute( 'transform',
-            el1.getAttribute('transform').replace(/scale\([^)]+\)/, 'scale(0.02)')
+        el1.setAttribute('transform',
+            el1.getAttribute('transform').replace(/translate\([^)]+\)/, 'translate(5 5)')
         );
-    }
-    if (el2) {
-        el2.setAttribute( 'transform',
-            el2.getAttribute('transform').replace(/scale\([^)]+\)/, 'scale(0.02)')
+        el1.setAttribute('transform',
+            el1.getAttribute('transform').replace(/scale\([^)]+\)/, 'scale(2)')
         );
     }
 
