@@ -4,6 +4,48 @@ var id_last_zone_clicked = "";
 var centring_target = "=grl9";
 let isDirty = true;
 
+//-------------------------------------------
+const svgElement = document.getElementById('mapa_itb_'); // Change to your SVG's actual ID
+let touchStartX = 0;
+let touchStartY = 0;
+let touchStartTime = 0;
+
+svgElement.addEventListener('touchstart', (e) => {
+    touchStartTime = Date.now();
+    // Record where the finger landed
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+svgElement.addEventListener('touchend', (e) => {
+    const touchDuration = Date.now() - touchStartTime;
+    // Record where the finger lifted up
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+
+    // Calculate if the finger moved (panned) while pressing down
+    const moveDistance = Math.hypot(touchEndX - touchStartX, touchEndY - touchStartY);
+
+    // If the finger lifted in under 200ms and barely moved, it's definitely a intentional click/tap
+    if (touchDuration < 200 && moveDistance < 10) {
+        // Find exactly what element is at that touch coordinate
+        const clickedElement = document.elementFromPoint(touchEndX, touchEndY);
+
+        // Find the closest path (in case they clicked a child or edge)
+        const targetPath = clickedElement ? clickedElement.closest('path') : null;
+
+        if (targetPath) {
+            e.preventDefault(); // Prevents double-firing
+
+            // --- CALL YOUR EXISTING SELECTION FUNCTION HERE ---
+            // Example: handlePathClick(targetPath);
+            console.log("Successfully intercepted iPad Chrome tap on:", targetPath);
+        }
+    }
+}, { passive: false });
+
+
+
 //--------------------------------------- hovered stuff
 document.addEventListener("mouseenter", e => {
     if (!e.target.tagName) return;
