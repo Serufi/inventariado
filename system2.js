@@ -75,6 +75,7 @@ function addEvents() {
         });
     });
 }
+
 function checkPercs() {
 
     var SELEC = document.querySelectorAll(".status-icon1").length;
@@ -175,14 +176,21 @@ function changeStatus(int) {
 
 }
 function crear_carta(no, patromonio, itabec, objeto, marca, subresguardante, direccion, ubicacion, tipo, icon) {
+    let cleanUbicacion = "";
 
-    let cleanUbicacion = ubicacion.trim();
+    try {
+        cleanUbicacion = ubicacion.trim();
+    } catch (err) {
+        cleanUbicacion = "error";
+
+    }
+
     return `        
-        <div id="card_${no}" onmouseover="display(\'${cleanUbicacion}\')" class="table_container1">
+        <div id="card_${no}" onmouseover="display(\'${cleanUbicacion}\')" onload="addEvents()" class="table_container1">
             <div id="asscard_${no}" class="asset-card item returning">
 
-                <div id="strip_${no}" class="status-strip">
-                    <div id="icon_${no}" class="status-icon" onclick="changeStatus(${no}); display(\'${cleanUbicacion}\');">?</div>
+                <div id="strip_${no}" class="status-strip" onclick="changeStatus(${no})">
+                    <div id="icon_${no}" class="status-icon" onclick="display(\'${cleanUbicacion}\');">?</div>
                 </div>
 
                 <div class="card-content">
