@@ -95,6 +95,10 @@ function crear_tabla(text) {
 
     let html = "";
     var conteo = 0;
+
+    // 1. Initialize an empty Set before your loop
+    let uniqueValues = new Set();
+
     rows.forEach(row => {
         const cols = row.split("\t");
         conteo++;
@@ -114,7 +118,14 @@ function crear_tabla(text) {
             cols[6], // tipo
             getIcon(icon)
         );
+
+        uniqueValues.add(cols[4]);
+
     });
+
+    // 3. Convert it back to a normal Array or JSON if needed
+    let finalResultArray = Array.from(uniqueValues);
+    console.log(finalResultArray);
 
     document.getElementById("table_container").innerHTML = html;
 
@@ -122,17 +133,33 @@ function crear_tabla(text) {
 }
 function getIcon(desc) {
     var icon = ""; //🗄️🖥️💻📦🚙🪑💺📞🖨️ ❄ //🗄︎🖥︎💻︎📦︎🚙︎🪑︎💺︎📞︎🖨︎ ❄︎
-
+    icon = "💭";
     if (desc.includes("dulo") || desc.includes("escr") || desc.includes("mesa")) { icon = "🗔︎"; }
     if (desc.includes("aire") || desc.includes("split")) { icon = "❄"; }
     if (desc.includes("visi") || desc.includes("sita")) { icon = "🪑"; }
-    if (desc.includes("llon") || desc.includes("sofa")) { icon = "💺︎"; }
+    if (desc.includes("sill") || desc.includes("sofa")) { icon = "💺︎"; }
     if (desc.includes("lefo") || desc.includes("fono")) { icon = "📞︎"; }
     if (desc.includes("moni") || desc.includes("unid")) { icon = "🖥︎"; }
-    if (desc.includes("all") && desc.includes("one")) { icon = "💻︎"; }
-    if (desc.includes("esta") || desc.includes("stante")) { icon = "📦︎"; }
+    if (desc.includes("all") && desc.includes(" uno")) { icon = "💻︎"; }
+    if (desc.includes("chivero") || desc.includes("stante")) { icon = "📦︎"; }
     if (desc.includes("gab") || desc.includes("etas")) { icon = "🗄️"; }
-    if (desc.includes("vehi") || desc.includes("carr") || desc.includes("camio")) { icon = "🚙︎"; }
+    if (desc.includes("veh") || desc.includes("carr") || desc.includes("camio")) { icon = "🚙︎"; }
+
+    // New items added below:
+    if (desc.includes("abanico") || desc.includes("venti")) { icon = "🪭︎"; } // Fan / Ventilador
+    if (desc.includes("frigo") || desc.includes("refr")) { icon = "🧊︎"; } // Frigobar / Minibar
+    if (desc.includes("horno") || desc.includes("micr")) { icon = "♨︎"; }  // Oven / Microwave heat symbol
+    if (desc.includes("impre")) { icon = "🖨︎"; }                            // Printer
+    if (desc.includes("scann") || desc.includes("escan")) { icon = "📠︎"; } // Scanner / Fax style plate
+    if (desc.includes(" v ") || desc.includes("tv") || desc.includes("televi")) { icon = "📺︎"; } // TV / V entry
+    if (desc.includes("subest") || desc.includes("electr")) { icon = "⚡︎"; } // Subestación / High Voltage Sign
+    if (desc.includes("andamio") || desc.includes("escala")) { icon = "🪜︎"; } // Andamio / Ladder / Structure
+    if (desc.includes("proyec")) { icon = "📹︎"; } // Projector / Video Camera glyph
+    if (desc.includes("camara")) { icon = "📹︎"; } // Projector / Video Camera glyph
+    if (desc.includes("lector")) { icon = "📟"; } // Projector / Video Camera glyph
+    if (desc.includes("cafe") || desc.includes("coffe")) { icon = "☕︎"; } // Cafetera / Hot Beverage
+    if (desc.includes("compu") || desc.includes("orden")) { icon = "💻︎"; } // Computadora / PC
+
     return icon;
 }
 function toast(message) {
