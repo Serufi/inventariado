@@ -4,6 +4,11 @@ function loadData() {
 
 }
 
+function input(elem) {
+    var text = elem.value;
+    crear_tabla(text);
+}
+
 function addEvents() {
     /// called from crear_tabla()
     // touch controls
@@ -78,12 +83,12 @@ function addEvents() {
 
 function checkPercs() {
 
-    var SELEC = document.querySelectorAll(".status-icon1").length;
-    var TOTAL = document.querySelectorAll(".item").length;
+    // var SELEC = document.querySelectorAll(".status-icon1").length;
+    // var TOTAL = document.querySelectorAll(".item").length;
 
 
-    by_id("perc").innerHTML = Math.trunc(100 * (SELEC / TOTAL)) + "%";
-    by_id("tot").innerHTML = SELEC + " / " + TOTAL;
+    // by_id("perc").innerHTML = Math.trunc(100 * (SELEC / TOTAL)) + "%";
+    // by_id("tot").innerHTML = SELEC + " / " + TOTAL;
 }
 function display(id) { console.log(id); }
 function by_id(_id) {   return document.getElementById(_id);    }
@@ -136,29 +141,29 @@ function getIcon(desc) {
     icon = "💭";
     if (desc.includes("dulo") || desc.includes("escr") || desc.includes("mesa")) { icon = "🗔︎"; }
     if (desc.includes("aire") || desc.includes("split")) { icon = "❄"; }
-    if (desc.includes("visi") || desc.includes("sita")) { icon = "🪑"; }
-    if (desc.includes("sill") || desc.includes("sofa")) { icon = "💺︎"; }
-    if (desc.includes("lefo") || desc.includes("fono")) { icon = "📞︎"; }
-    if (desc.includes("moni") || desc.includes("unid")) { icon = "🖥︎"; }
-    if (desc.includes("all") && desc.includes(" uno")) { icon = "💻︎"; }
+    if (desc.includes("visi") || desc.includes("sita"))  { icon = "🪑"; }
+    if (desc.includes("sill") || desc.includes("sofa"))  { icon = "💺︎"; }
+    if (desc.includes("lefo") || desc.includes("fono"))  { icon = "📞︎"; }
+    if (desc.includes("moni") || desc.includes("unid"))  { icon = "🖥︎"; }
+    if (desc.includes("compu")   || desc.includes("orden")) { icon = "💻︎"; } // Computadora / PC
+    if (desc.includes("all") && desc.includes(" uno"))   { icon = "🖥︎"; }  //🖥💻︎
     if (desc.includes("chivero") || desc.includes("stante")) { icon = "📦︎"; }
-    if (desc.includes("gab") || desc.includes("etas")) { icon = "🗄️"; }
+    if (desc.includes("gab") || desc.includes("etas"))   { icon = "🗄️"; }
     if (desc.includes("veh") || desc.includes("carr") || desc.includes("camio")) { icon = "🚙︎"; }
 
     // New items added below:
     if (desc.includes("abanico") || desc.includes("venti")) { icon = "🪭︎"; } // Fan / Ventilador
-    if (desc.includes("frigo") || desc.includes("refr")) { icon = "🧊︎"; } // Frigobar / Minibar
-    if (desc.includes("horno") || desc.includes("micr")) { icon = "♨︎"; }  // Oven / Microwave heat symbol
+    if (desc.includes("frigo")   || desc.includes("refr")) { icon = "🧊︎"; }  // Frigobar / Minibar
+    if (desc.includes("horno")   || desc.includes("micr")) { icon = "♨︎"; }  // Oven / Microwave heat symbol
     if (desc.includes("impre")) { icon = "🖨︎"; }                            // Printer
-    if (desc.includes("scann") || desc.includes("escan")) { icon = "📠︎"; } // Scanner / Fax style plate
+    if (desc.includes("scann")   || desc.includes("escan")) { icon = "📠︎"; } // Scanner / Fax style plate
     if (desc.includes(" v ") || desc.includes("tv") || desc.includes("televi")) { icon = "📺︎"; } // TV / V entry
-    if (desc.includes("subest") || desc.includes("electr")) { icon = "⚡︎"; } // Subestación / High Voltage Sign
-    if (desc.includes("andamio") || desc.includes("escala")) { icon = "🪜︎"; } // Andamio / Ladder / Structure
+    if (desc.includes("subest")  || desc.includes("electr")) { icon = "⚡︎"; } // Subestación / High Voltage Sign
+    if (desc.includes("andamio") || desc.includes("escal")) { icon = "🪜︎"; } // Andamio / Ladder / Structure
     if (desc.includes("proyec")) { icon = "📹︎"; } // Projector / Video Camera glyph
     if (desc.includes("camara")) { icon = "📹︎"; } // Projector / Video Camera glyph
     if (desc.includes("lector")) { icon = "📟"; } // Projector / Video Camera glyph
-    if (desc.includes("cafe") || desc.includes("coffe")) { icon = "☕︎"; } // Cafetera / Hot Beverage
-    if (desc.includes("compu") || desc.includes("orden")) { icon = "💻︎"; } // Computadora / PC
+    if (desc.includes("cafe")    || desc.includes("coffe")) { icon = "☕︎"; } // Cafetera / Hot Beverage
 
     return icon;
 }
@@ -220,6 +225,46 @@ function crear_carta(no, patromonio, itabec, objeto, marca, subresguardante, dir
                     <div id="icon_${no}" class="status-icon" onclick="display(\'${cleanUbicacion}\');">?</div>
                 </div>
 
+                <div class="card-content" style="display: flex; flex-direction: row;">
+
+                        <div class="asset-info" >
+                            <div class="asset-icon"> ${icon} </div>
+                            <div > 
+                                <div class="asset-details" style="display: flex; flex-direction: column;">${objeto}</div>
+                                <div>  <div class="brand">${marca}  (${tipo})</div> </div>
+                                <div class="field2"> <span class="label"></span> <span class="badge text-bg-primary">•${patromonio}</span> </div>
+                            </div>
+                        </div>
+                        
+                        <hr>
+
+                        <div class="actions">
+                            <div style="display: flex; flex-direction: column; margin-right: 30px;">
+                                <div class="field">  <span class="label">🧑‍💼</span> <span class="value">${subresguardante}</span> </div>
+                                <div class="field">  <span class="label">🏛️</span> <span class="value">${direccion}</span> </div>
+                                <div class="field2"> <span class="label"></span> <span class="badge text-bg-secondary">${itabec}</span> </div>
+                            </div>    
+                        </div>
+                    
+
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+
+
+/*
+
+
+   <div id="card_${no}" onmouseover="display(\'${cleanUbicacion}\')" onload="addEvents()" class="table_container1">
+            <div id="asscard_${no}" class="asset-card item returning">
+
+                <div id="strip_${no}" class="status-strip" onclick="changeStatus(${no})">
+                    <div id="icon_${no}" class="status-icon" onclick="display(\'${cleanUbicacion}\');">?</div>
+                </div>
+
                 <div class="card-content">
                     <div class="card-header">
                         <div class="asset-info">
@@ -256,5 +301,22 @@ function crear_carta(no, patromonio, itabec, objeto, marca, subresguardante, dir
                 </div>
             </div>
         </div>
-    `;
+
+
+ */
+
+function closeModal() {
+    // console.log("closin");
+    var modal = document.getElementById('customModal');
+    modal.close();
+    modal.classList.remove("active_modal");
+
+}
+
+function openModal() {
+    // console.log("opening");
+    var modal = document.getElementById('customModal');
+    modal.showModal();
+    modal.classList.add("active_modal");
+
 }

@@ -17,15 +17,71 @@
 </head>
 
 <body onload="loadData();">
-    <div id="panel_de_control" hidden>
-        <textarea id="searching_ids" placeholder="Buscar IDs, ejemplo... 47-0006" oninput="buscar(event.target.value);" class="form-control"></textarea>
-        <button id="reset" onclick="reset();" class="btn btn-outline btn-primary">Centrar Vista</button>
-        <button id="flipearBtn" onclick="switcher();" class="btn btn-outline btn-primary">Flipear Horizontal/Vertical</button>
-        <button id="openModalBtn" onclick="openModal();" class="btn btn-outline btn-secondary ">Filtrado, Carga de Datos, Diccionario</button>
-        <button id="download" onclick="downloadData();" class="btn btn-outline btn-warning">Descargar Datos Actuales</button>
+    <div id="bodys">
+        <div id="panel_de_control" hidden>
+            <textarea id="searching_ids" placeholder="Buscar IDs, ejemplo... 47-0006" oninput="buscar(event.target.value);" class="form-control"></textarea>
+            <button id="reset" onclick="reset();" class="btn btn-outline btn-primary">Centrar Vista</button>
+            <button id="flipearBtn" onclick="switcher();" class="btn btn-outline btn-primary">Flipear Horizontal/Vertical</button>
+            <button id="openModalBtn" onclick="openModal();" class="btn btn-outline btn-secondary ">Filtrado, Carga de Datos, Diccionario</button>
+            <button id="download" onclick="downloadData();" class="btn btn-outline btn-warning">Descargar Datos Actuales</button>
+        </div>
+
+        <div id="ddd">
+            <div id="panel_top">
+                <button class="btn btn-primary butt_top" onclick="openModal();"> 📋 Cargar Datos </button>
+                <button class="btn btn-primary butt_top" onclick="openModal2();"> 🔎 Localizar </button>
+                <div class="btn btn-primary butt_top">
+                    <span class="label">📶</span>
+                    <span id="perc" class="">0</span>
+                </div>
+                <div class="btn btn-primary butt_top">
+                    <span class="label">🏛️</span>
+                    <span id="tot" class="">0</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="table_container" class="table_container1"></div>
+        <div id="img_countainer" class="mouse map_container1"></div>
+        <h6 id="follow_label" class="white_t"><span class="label_buscando"></span></h6>
     </div>
 
-    <div onmouseover="display(id)">
+    <dialog id="customModal" class="modal">
+        <div class="modal-content">
+            <h2>Inventariado ITABEC</h2>
+
+
+            <label for="pasteArea" style="font-size:0.8em;">
+                Para ingresar datos propios distintos a los precargados:
+                <br />Copie y pegue desde el <b>EXCEL</b> la información de las siguientes columnas:
+                <br />  • Id de Padrimonio
+                <br />  • Id de Itabec
+                <br />  • Descipción del objeto: <br /> en el siguiente cuadro de texto
+            </label>
+
+            <h4>Cargar datos: <span style="font-size:0.5em;"> Solo desde Excel!</span></h4>
+            <textarea id="pasteArea" oninput="input(this);" style="font-size:0.5em;"></textarea>
+
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="closeModal();">Cerrar</button>
+            </div>
+        </div>
+    </dialog>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+    <!--<div onmouseover="display(id)">
 
 
         <div class="asset-card panel">
@@ -36,11 +92,11 @@
             <div class="card-content">
                 <div class="card-header1">
                     <div class="asset-info">
-                        <div class="asset-icon"> I </div>
+                        <div class="asset-icon"> I </div>-->
                         <!--<div> Cargar Datos...</div>-->
                         <!--<div class="brand">TEMPSTAR</div>
                         <div class="brand">Obras Públicas</div>-->
-                        <button class="btn btn-secondary bl">Cargar Datos...</button>
+                        <!--<button class="btn btn-secondary bl">Cargar Datos...</button>
                     </div>
 
                     <div class="actions" hidden>
@@ -59,7 +115,7 @@
                     <div class="field">
                         <span class="label">🏛️</span>
                         <span id="tot" class="value"></span>
-                    </div>
+                    </div>-->
                     <!--<div class="field2">
                         <span class="label">Patrimonio   .</span>
                         <span class="value">54116-11-1034-10231</span>
@@ -69,53 +125,11 @@
                         <span class="label">ITABEC   .</span>
                         <span class="value">I54116-01-0031-01101</span>
                     </div>-->
-                </div>
+                <!--</div>
             </div>
         </div>
-    </div>
-
-
-    <div id="table_container" class="table_container1"></div>
-    <div id="img_countainer" class="mouse map_container1"></div>
-    <h6 id="follow_label" class="white_t"><span class="label_buscando"></span></h6>
-
-    <dialog id="customModal" class="modal">
-        <div class="modal-content">
-            <h2>Inventariado ITABEC</h2>
-
-
-            <label for="pasteArea" style="font-size:0.8em;">
-                Para ingresar datos propios distintos a los precargados:
-                <br />Copie y pegue desde el <b>EXCEL</b> la información de las siguientes columnas:
-                <br />  • Id de Padrimonio
-                <br />  • Id de Itabec
-                <br />  • Descipción del objeto: <br /> en el siguiente cuadro de texto
-            </label>
-
-            <h4>Cargar datos: <span style="font-size:0.5em;"> Solo desde Excel!</span></h4>
-            <textarea id="pasteArea" oninput="clicked();"></textarea>
-
-
-            <h4>Diccionario:</h4>
-            <textarea id="buscar" oninput="diccionario_de_terminos(this.value);"></textarea>
-            <label for="buscar"> ...<span style="font-family:'Encode Sans Normal'" class="label_buscando"></span></label>
-            <p style="font-family:'Courier New'; font-size: 0.8em;">
-                . dirección          .<br />
-                & jefatura           .<br />
-                = zona               .<br />
-                + bodega/adjacente a .<br />
-                / pasillo            .<br />
-            </p>
-
-            <div class="modal-actions">
-                <button class="btn btn-confirm" onclick="closeModal();">cerrar</button>
-            </div>
-        </div>
-    </dialog>
+    </div>-->
 
 
 
 
-
-</body>
-</html>
