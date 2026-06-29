@@ -6,6 +6,13 @@ let isDirty = true;
 
 //-------------------------------------------
 window.onload = () => {
+    button.addEventListener("mousedown", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        input.value = id_last_zone_clicked;
+        console.log("committing:", input.value);
+        commit(input.value);
+    });
 
     const svgElement = document.getElementById('mapa_itb_'); // Change to your SVG's actual ID
     let touchStartX = 0;
@@ -57,26 +64,19 @@ document.addEventListener("mouseenter", e => {
         iluminate(e.target);
     }
     if (e.target.getAttribute("role")?.toLowerCase() === "row") {
-        De_iluminate();
+        //De_iluminate();
         const cell = e.target.querySelector("span.cell-value");
+        console.log(cell);
+
         if (cell) {
             const text_search = cell.textContent;
-            const buscado = document.getElementById(text_search);
-            if (buscado) { iluminate(buscado); }
+            const noSpaces = text_search.replace(/\s/g, '');
+            const buscado = document.getElementById(noSpaces);
+            if (buscado) {
+                console.log(buscado);
+                iluminate(buscado);
+            }
         }
-    }
-
-
-
-    const el1 = document.getElementById('svg-pan-zoom-controls');
-
-    if (el1) {
-        el1.setAttribute('transform',
-            el1.getAttribute('transform').replace(/translate\([^)]+\)/, 'translate(5 5)')
-        );
-        el1.setAttribute('transform',
-            el1.getAttribute('transform').replace(/scale\([^)]+\)/, 'scale(2)')
-        );
     }
 
 }, true);
@@ -126,7 +126,7 @@ document.addEventListener("pointerdown", async e => {
             }, 3000);
 
             // Or create a toast notification
-            showToast("Copiado: " + output_text);
+            toast("Copiado: " + output_text);
 
             pasteFromClipboard();
         } catch (err) {
@@ -134,6 +134,8 @@ document.addEventListener("pointerdown", async e => {
         }
     }
 }, true);
+
+
 
 
 //------------------------------------------------------------- hovered stuff
@@ -144,6 +146,19 @@ async function pasteFromClipboard() {
         console.log("Pasted text");
     } catch (err) {
         console.error("Failed to paste: ", err);
+    }
+}
+
+function changeButtonSize() {
+    const el1 = document.getElementById('svg-pan-zoom-controls');
+
+    if (el1) {
+        el1.setAttribute('transform',
+            el1.getAttribute('transform').replace(/translate\([^)]+\)/, 'translate(5 5)')
+        );
+        el1.setAttribute('transform',
+            el1.getAttribute('transform').replace(/scale\([^)]+\)/, 'scale(1.8)')
+        );
     }
 }
 
@@ -207,7 +222,7 @@ function loadData() {
     fetch("data.txt")
         .then(response => response.text())
         .then(text => {
-            show_table(text);
+            crear_tabla(text);
         })
         .catch(err => console.error(err));
 
@@ -232,11 +247,14 @@ function loadData() {
 
 }
 
-function func1(dom_element)
+function func1(el)
 {
-    //showToast("Pegar en: " + dom_element);
-    dom_element.parent = id_last_zone_clicked;
-    btn.closest('[tabulator-field="fff"]').innerText = id_last_zone_clicked;
+    const row = el.closest('.tabulator-row');
+    if (!row) return;
+
+    const cell = row.querySelector('[tabulator-field="fff"]');
+    if (cell) cell.innerText = id_last_zone_clicked;
+
 }
 
 function checkHealthSVG() {
@@ -259,7 +277,7 @@ function checkHealthSVG() {
 
 
     setTimeout(() => { centerOnPath(centring_target); }, 1000);
-
+    
 
 } //also adds paste here buttons via addbuttons();
 // Function to center on a specific path
@@ -412,10 +430,10 @@ function buscar(str) {
 
 function clicked() {
     var pastedText = document.getElementById("pasteArea").value;
-    show_table(pastedText);
+    crear_tabla(pastedText);
 }
 
-function show_table(pastedText) {
+function crear_tabla(pastedText) {
 
     hide_loading_msg();
 
@@ -447,27 +465,13 @@ function show_table(pastedText) {
                 {
                     title: "Patrimonio",
                     field: "patrimonio",
-                    editor: "input",
-                    editorParams: {
-                        elementAttributes: {
-                            "id": "edit-patrimonio",
-                            "name": "edit-patrimonio"
-                        }
-                    }
                 },
                 {
                     title: "Itabec",
                     field: "itabec",
-                    editor: "input",
-                    editorParams: {
-                        elementAttributes: {
-                            "id": "edit-itabec",
-                            "name": "edit-itabec"
-                        }
-                    }
                 },
                 {
-                    title: "Nombre/Descripción",
+                    title: "Nombre / Descripción",
                     field: "nombre",
                     editor: "input",
                     editorParams: {
@@ -478,28 +482,26 @@ function show_table(pastedText) {
                     }
                 },
                 {
-                    title: "Visto por última vez en",
+                    title: "Visto en...",
                     field: "fff",
                     formatter: function (cell) {
                         const value = cell.getValue();
-
-                        return `
-                            <span class="cell-value">${value ?? ""}</span>
-                            <button class="btn btn-secondary btn_paste">Pegar</button>
-                        `;
-                    },
+                        return `<span class="cell-value">${value ?? ""}</span>
+                                <button class="btn btn-secondary btn_paste">Pegar</button>`;},
                     cellClick: function (e, cell) {
                         if (e.target.classList.contains("btn_paste")) {
                             cell.setValue(id_last_zone_clicked);
+                            isDirty = true;
                         }
-                    },
-                    editor: "input",
-                    editorParams: {
-                        elementAttributes: {
-                            "id": "edit-ubicacion",
-                            "name": "edit-ubicacion"
-                        }
+                        // If they clicked the text span, open a simple editor
+                        // if (e.target.classList.contains("cell-value")) {
+                        //     cell.edit();
+                        // }
+                        const value = cell.getValue();
+                        return `<span class="cell-value">${value ?? ""}</span>
+                                <button class="btn btn-secondary btn_paste">Pegar</button>`;
                     }
+                    ,editor: "input", // plain built-in editor, only opens on span click
                 }
             ],
             cellclick: function (e, cell) {
@@ -511,13 +513,15 @@ function show_table(pastedText) {
     } else {
         table.setData(data);
     }
+
+    changeButtonSize();
 }
 
 function hide_loading_msg() {
     document.getElementById("lol").style.display = "none";
 }
 
-function showToast(message) {
+function toast(message) {
     var toast = document.createElement("div");
     toast.textContent = message;
     toast.style.cssText = `
@@ -536,3 +540,4 @@ function showToast(message) {
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 3000);
 }
+
