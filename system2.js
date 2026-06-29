@@ -41,14 +41,10 @@ function addEvents() {
             if (dt < 300 && Math.abs(dx) > 60) {
                 if (dx > 0) {
                     console.log("Favorite: " + item.id);
-
                     if (item.classList.contains("selected")) {
-
                         item.classList.add("deselecting");
                         item.classList.remove("selected");
-
                     } else {
-
                         item.classList.add("selecting");
                         item.classList.add("selected");
                     }
@@ -56,16 +52,12 @@ function addEvents() {
 
                 else {
                     console.log("Delete:   " + item.id);
-
                     if (item.classList.contains("selected")) {
-
                         item.classList.add("deselecting");
                         item.classList.remove("selected");
 
                     } else {
-
                         item.classList.add("returning");
-
                     }
                 }
                  
@@ -81,18 +73,6 @@ function addEvents() {
     });
 }
 
-function checkPercs() {
-
-    // var SELEC = document.querySelectorAll(".status-icon1").length;
-    // var TOTAL = document.querySelectorAll(".item").length;
-
-
-    // by_id("perc").innerHTML = Math.trunc(100 * (SELEC / TOTAL)) + "%";
-    // by_id("tot").innerHTML = SELEC + " / " + TOTAL;
-}
-function display(id) { console.log(id); }
-function by_id(_id) {   return document.getElementById(_id);    }
-function by_css(_class) { return Array.from(document.getElementsByClassName(_class)); }
 // const cards = by_class("asset-card"); // <----------- usage
 // cards.forEach(card => {   console.log(card);   });
 function crear_tabla(text) {
@@ -136,9 +116,77 @@ function crear_tabla(text) {
 
     setTimeout(() => { addEvents(); }, 1000);
 }
+function crear_carta(no, patromonio, itabec, objeto, marca, subresguardante, direccion, ubicacion, tipo, icon) {
+    let cleanUbicacion = "";
+
+    try {
+        cleanUbicacion = ubicacion.trim();
+    } catch (err) {
+        cleanUbicacion = "error";
+
+    }
+
+    return `        
+        <div id="card_${no}" onmouseover="display(\'${cleanUbicacion}\')" onload="addEvents()" class="table_container1">
+            <div id="asscard_${no}" class="asset-card item returning">
+
+                <div id="strip_${no}" class="status-strip" onclick="changeStatus(${no})">
+                    <div id="icon_${no}" class="status-icon" onclick="display(\'${cleanUbicacion}\');">?</div>
+                </div>
+
+                <div class="card-content" style="display: flex; flex-direction: row;">
+
+                        <div class="asset-info" >
+                            <div class="asset-icon"> ${icon} </div>
+                            <div > 
+                                <div class="asset-details" style="display: flex; flex-direction: column;">${objeto}</div>
+                                <div>  <div class="brand">${marca}  (${tipo})</div> </div>
+                                <div class="field">  <span class="label">🧑‍💼</span> <span class="value">${subresguardante}</span> </div>
+                                <div class="field">  <span class="label">🏛️</span> <span class="value">${direccion}</span> </div>
+                            </div>
+
+                        </div>
+                        
+                        <hr>
+
+                        <div class="actions">
+                            <div style="display: flex; flex-direction: column; margin-right: 30px;">
+                                <div class="field2"> <span class="label"></span> <span class="badge text-bg-primary">•${patromonio}</span> </div>
+                                <div class="field2"> <span class="label"></span> <span class="badge text-bg-secondary">${itabec}</span> </div>
+                            </div>    
+                        </div>
+
+
+                    
+
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+
+function checkPercs() {
+    var SELEC = document.querySelectorAll(".status-icon1").length;
+    var TOTAL = document.querySelectorAll(".item").length;
+
+
+    by_id("perc").innerHTML = Math.trunc(100 * (SELEC / TOTAL)) + "%";
+    by_id("tot").innerHTML = SELEC + " / " + TOTAL;
+}
+function display(id) {
+    console.log(id);
+}
+function by_id(_id) {
+    return document.getElementById(_id);
+}
+function by_css(_class) {
+    return Array.from(document.getElementsByClassName(_class));
+}
 function getIcon(desc) {
     var icon = ""; //🗄️🖥️💻📦🚙🪑💺📞🖨️ ❄ //🗄︎🖥︎💻︎📦︎🚙︎🪑︎💺︎📞︎🖨︎ ❄︎
     icon = "💭";
+    if (desc.includes("chivero") || desc.includes("stante"))   { icon = "🗄️"; }
     if (desc.includes("dulo") || desc.includes("escr") || desc.includes("mesa")) { icon = "🗔︎"; }
     if (desc.includes("aire") || desc.includes("split")) { icon = "❄"; }
     if (desc.includes("visi") || desc.includes("sita"))  { icon = "🪑"; }
@@ -147,8 +195,6 @@ function getIcon(desc) {
     if (desc.includes("moni") || desc.includes("unid"))  { icon = "🖥︎"; }
     if (desc.includes("compu")   || desc.includes("orden")) { icon = "💻︎"; } // Computadora / PC
     if (desc.includes("all") && desc.includes(" uno"))   { icon = "🖥︎"; }  //🖥💻︎
-    if (desc.includes("chivero") || desc.includes("stante")) { icon = "📦︎"; }
-    if (desc.includes("gab") || desc.includes("etas"))   { icon = "🗄️"; }
     if (desc.includes("veh") || desc.includes("carr") || desc.includes("camio")) { icon = "🚙︎"; }
 
     // New items added below:
@@ -207,51 +253,6 @@ function changeStatus(int) {
     }
 
 }
-function crear_carta(no, patromonio, itabec, objeto, marca, subresguardante, direccion, ubicacion, tipo, icon) {
-    let cleanUbicacion = "";
-
-    try {
-        cleanUbicacion = ubicacion.trim();
-    } catch (err) {
-        cleanUbicacion = "error";
-
-    }
-
-    return `        
-        <div id="card_${no}" onmouseover="display(\'${cleanUbicacion}\')" onload="addEvents()" class="table_container1">
-            <div id="asscard_${no}" class="asset-card item returning">
-
-                <div id="strip_${no}" class="status-strip" onclick="changeStatus(${no})">
-                    <div id="icon_${no}" class="status-icon" onclick="display(\'${cleanUbicacion}\');">?</div>
-                </div>
-
-                <div class="card-content" style="display: flex; flex-direction: row;">
-
-                        <div class="asset-info" >
-                            <div class="asset-icon"> ${icon} </div>
-                            <div > 
-                                <div class="asset-details" style="display: flex; flex-direction: column;">${objeto}</div>
-                                <div>  <div class="brand">${marca}  (${tipo})</div> </div>
-                                <div class="field2"> <span class="label"></span> <span class="badge text-bg-primary">•${patromonio}</span> </div>
-                            </div>
-                        </div>
-                        
-                        <hr>
-
-                        <div class="actions">
-                            <div style="display: flex; flex-direction: column; margin-right: 30px;">
-                                <div class="field">  <span class="label">🧑‍💼</span> <span class="value">${subresguardante}</span> </div>
-                                <div class="field">  <span class="label">🏛️</span> <span class="value">${direccion}</span> </div>
-                                <div class="field2"> <span class="label"></span> <span class="badge text-bg-secondary">${itabec}</span> </div>
-                            </div>    
-                        </div>
-                    
-
-                </div>
-            </div>
-        </div>
-    `;
-}
 
 
 
@@ -305,17 +306,21 @@ function crear_carta(no, patromonio, itabec, objeto, marca, subresguardante, dir
 
  */
 
-function closeModal() {
+function closeModal(id) {
     // console.log("closin");
     var modal = document.getElementById('customModal');
+    try { if (id == 2) { modal = document.getElementById('customModal2'); } } catch (err) { }
     modal.close();
     modal.classList.remove("active_modal");
 
 }
 
-function openModal() {
+function openModal(id) {
     // console.log("opening");
     var modal = document.getElementById('customModal');
+
+    try { if (id == 2) { modal = document.getElementById('customModal2'); } } catch (err) { }
+
     modal.showModal();
     modal.classList.add("active_modal");
 
